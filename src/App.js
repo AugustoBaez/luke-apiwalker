@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Search from "./components/Search";
+import IdSearch from "./components/IdSearch";
+import Content from "./components/Content";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const [type, setType] = useState([]);
+  const [id, setId] = useState();
+  const url = "https://swapi.dev/api/";
+  console.log(url);
+
+  useEffect(() => {
+    axios.get(url).then((res) => {
+      /*       setCurrent(res.data); */
+      /*       setType(res.data.map((character) => character.data)); */
+      // setType(res.data);
+      console.log(res)
+    });
+  }, []);
+
+  console.log(type);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search type={type} setType={setType} />
+      <IdSearch setId={setId} />
+      <Content type={type} />
     </div>
   );
 }
